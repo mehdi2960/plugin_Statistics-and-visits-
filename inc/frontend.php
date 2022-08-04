@@ -19,7 +19,6 @@ function wps_user_visit_callback()
      //رکوردی برای برای wps_visits وجود دارد یا نه
     $today_visits_exist=$wpdb->get_var("SELECT id FROM {$table_prefix}wps_visits WHERE DATE('{$date}')=DATE(date)");
 
-
     if ($today_visits_exist){
        $wpdb->query("UPDATE {$table_prefix}wps_visits SET total_visits=total_visits+1 WHERE id={$today_visits_exist}");
         if ($is_user_visit_site_today){
