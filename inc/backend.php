@@ -1,7 +1,11 @@
 <?php
 function wps_admin_menu()
 {
+    global $wpdb,$table_prefix;
+    $total_visits=$wpdb->get_row("SELECT SUM(total_visits) as total_visits,SUM(unique_visits) as totla_unique_visits FROM {$table_prefix}wps_visits");
 
+
+    include WPS_TPL."admin_main_page.php";
 }
 
 

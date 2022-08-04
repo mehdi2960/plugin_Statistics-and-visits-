@@ -14,6 +14,7 @@ defined('ABSPATH') || exit();
 define('WPS_DIR',trailingslashit(plugin_dir_path(__FILE__)));
 define('WPS_URL',trailingslashit(plugin_dir_url(__FILE__)));
 define('WPS_INC',trailingslashit(WPS_DIR.'inc'));
+define('WPS_TPL',trailingslashit(WPS_DIR.'tpl'));
 define('WPS_CSS',trailingslashit(WPS_URL.'assets'.'/'.'css'));
 define('WPS_JS',trailingslashit(WPS_URL.'assets'.'/'.'js'));
 define('WPS_IMAGES',trailingslashit(WPS_URL.'assets'.'/'.'images'));
