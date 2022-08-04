@@ -26,3 +26,8 @@ function wps_deactivate(){}
 register_activation_hook(__FILE__,'wps_activate');
 register_deactivation_hook(__FILE__,'wps_deactivate');
 
+if (is_admin()){
+
+}else{
+    include WPS_INC."frontend.php";
+}
