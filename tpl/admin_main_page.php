@@ -12,12 +12,28 @@
                             <div class="main">
                                 <p>
                                     <span>بازدید کل: </span>
-                                    <span><?php echo $total_visits->total_visits?></span>
+                                    <span><?php echo $totalVisits->total_visits;?></span>
                                 </p>
                                 <p>
                                     <span>بازدید یکتای کل: </span>
-                                    <span><?php echo $total_visits->totla_unique_visits?></span>
+                                    <span><?php echo $totalVisits->totla_unique_visits;?></span>
                                 </p>
+                                <p>
+                                    <span>بازدید کل امروز: </span>
+                                    <span><?php echo $todayStatitics->total_visits;?></span>
+                                </p>
+                                <p>
+                                    <span>بازدید یکتای امروز: </span>
+                                    <span><?php echo $todayStatitics->unique_visits;?></span>
+                                </p>
+<!--                                <p>-->
+<!--                                    <span>بازدید کل دیروز: </span>-->
+<!--                                    <span>--><?php //echo intval($yesterdayStatitics->total_visits);?><!--</span>-->
+<!--                                </p>-->
+<!--                                <p>-->
+<!--                                    <span>بازدید یکتای دیروز: </span>-->
+<!--                                    <span>--><?php //echo intval($yesterdayStatitics->unique_visits);?><!--</span>-->
+<!--                                </p>-->
                             </div>
                         </div>
                     </div>
