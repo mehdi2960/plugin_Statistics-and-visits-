@@ -7,4 +7,5 @@
             </a>
         <?php endforeach;?>
     </h2>
+    <?php include WPS_TPL.'admin_settings_'.$currentTab.'.php';?>
 </div>
