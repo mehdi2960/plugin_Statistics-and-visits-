@@ -9,14 +9,14 @@ function wps_admin_menu()
     //yesterday stat
     $yesterdayStatitics = $wpdb->get_row("SELECT total_visits,unique_visits FROM wpdiv_wps_visits WHERE date=DATE_SUB('{$todate}',INTERVAL 1 DAY);");
 
-    $visitsChartData=$wpdb->get_results("SELECT `date`,total_visits FROM {$table_prefix}wps_visits");
+    $visitsChartData = $wpdb->get_results("SELECT `date`,total_visits FROM {$table_prefix}wps_visits");
 
     //show label And date
-    $visitsDates=[];
-    $totalvisits=[];
-    foreach ($visitsChartData as $item){
-        $visitsDates[]=$item->date;
-        $totalvisits[]=$item->total_visits;
+    $visitsDates = [];
+    $totalvisits = [];
+    foreach ($visitsChartData as $item) {
+        $visitsDates[] = $item->date;
+        $totalvisits[] = $item->total_visits;
     }
 
     include WPS_TPL . "admin_main_page.php";
@@ -24,21 +24,28 @@ function wps_admin_menu()
 
 function wps_admin_menu_settings()
 {
-    $tabs=array(
-        'general'=>'عمومی',
-        'messages'=>'اطلاع رسانی',
-        'about'=>'درباره ما',
+    $tabs = array(
+        'general' => 'عمومی',
+        'messages' => 'اطلاع رسانی',
+        'about' => 'درباره ما',
     );
 
-    $currentTab=isset($_GET['tab'])?$_GET['tab']:'general';
+    $currentTab = isset($_GET['tab']) ? $_GET['tab'] : 'general';
 
-    if (isset($_POST['submit'])){
-        $wps_enable=isset($_POST['wps_enable']) ? 1:0;
-        update_option('wps_enable',$wps_enable);
+    //update admin plugin settings
+    if (isset($_POST['submit'])) {
+        $wps_enable = isset($_POST['wps_enable']) ? 1 : 0;
+        update_option('wps_enable', $wps_enable);
+
+        //update admin email settings for wps plugin
+        !empty($_POST['wps_admin_email'])
+        && filter_var($_POST['wps_admin_email'], FILTER_VALIDATE_EMAIL)
+            ? update_option('wps_admin_email', esc_sql($_POST['wps_admin_email'])) : null;
     }
-    $wps_enable_enable=intval(get_option('wps_enable'));
+    $wps_enable_enable = intval(get_option('wps_enable'));
+    $wps_admin_email = get_option('wps_admin_email');
 
-    include WPS_TPL."admin_setting_page.php";
+    include WPS_TPL . "admin_setting_page.php";
 }
 
 
@@ -82,8 +89,8 @@ add_action('admin_menu', 'wpdocs_register_my_custom_menu_page');
 //define load asset
 function wps_load_assets()
 {
-    wp_register_script('chart.min.js',WPS_JS.'chart.min.js',array('jquery'));
-    wp_register_script('wps.admin.js',WPS_JS.'admin.js',array('jquery','chart.min.js'));
+    wp_register_script('chart.min.js', WPS_JS . 'chart.min.js', array('jquery'));
+    wp_register_script('wps.admin.js', WPS_JS . 'admin.js', array('jquery', 'chart.min.js'));
 
     wp_enqueue_script('chart.min.js');
     wp_enqueue_script('wps.admin.js');

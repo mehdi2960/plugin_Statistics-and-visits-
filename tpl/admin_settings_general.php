@@ -7,4 +7,13 @@
             <input type="checkbox" id="wps_enable" name="wps_enable" <?php checked(1,$wps_enable_enable);?>>
         </td>
     </tr>
+
+    <tr valign="top">
+        <th scope="row">
+            <label for="wps_admin_email">ایمیل مدیر سایت : </label>
+        </th>
+        <td>
+            <input type="email" id="wps_admin_email" name="wps_admin_email" value="<?php echo $wps_admin_email;?>">
+        </td>
+    </tr>
 </table>
