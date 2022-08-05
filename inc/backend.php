@@ -32,6 +32,12 @@ function wps_admin_menu_settings()
 
     $currentTab=isset($_GET['tab'])?$_GET['tab']:'general';
 
+    if (isset($_POST['submit'])){
+        $wps_enable=isset($_POST['wps_enable']) ? 1:0;
+        update_option('wps_enable',$wps_enable);
+    }
+    $wps_enable_enable=intval(get_option('wps_enable'));
+
     include WPS_TPL."admin_setting_page.php";
 }
 
