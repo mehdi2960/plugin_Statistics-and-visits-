@@ -9,6 +9,16 @@ function wps_admin_menu()
     //yesterday stat
     $yesterdayStatitics = $wpdb->get_row("SELECT total_visits,unique_visits FROM wpdiv_wps_visits WHERE date=DATE_SUB('{$todate}',INTERVAL 1 DAY);");
 
+    $visitsChartData=$wpdb->get_results("SELECT `date`,total_visits FROM {$table_prefix}wps_visits");
+
+    //show label And date
+    $visitsDates=[];
+    $totalvisits=[];
+    foreach ($visitsChartData as $item){
+        $visitsDates[]=$item->date;
+        $totalvisits[]=$item->total_visits;
+    }
+
     include WPS_TPL . "admin_main_page.php";
 }
 
@@ -33,6 +43,9 @@ add_action('admin_menu', 'wpdocs_register_my_custom_menu_page');
 //define load asset
 function wps_load_assets()
 {
-    wp_register_script('chart.js',WPS_JS.'chart.js',array('jquery'));
-    wp_enqueue_script('chart.js');
+    wp_register_script('chart.min.js',WPS_JS.'chart.min.js',array('jquery'));
+    wp_register_script('wps.admin.js',WPS_JS.'admin.js',array('jquery','chart.min.js'));
+
+    wp_enqueue_script('chart.min.js');
+    wp_enqueue_script('wps.admin.js');
 }
