@@ -16,4 +16,13 @@
             <input type="email" id="wps_admin_email" name="wps_admin_email" value="<?php echo $wps_admin_email;?>">
         </td>
     </tr>
+
+    <tr valign="top">
+        <th scope="row">
+            <label for="wps_admin_mobile">شماره همراه مدیر سایت : </label>
+        </th>
+        <td>
+            <input type="email" id="wps_admin_mobile" name="wps_admin_mobile" value="<?php //echo $wps_admin_mobile;?>">
+        </td>
+    </tr>
 </table>

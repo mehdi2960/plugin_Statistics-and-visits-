@@ -103,3 +103,42 @@ function wps_load_assets()
     wp_enqueue_script('chart.min.js');
     wp_enqueue_script('wps.admin.js');
 }
+
+//hooks
+add_action('wps_notify','wps_notify_callback');
+
+function wps_notify_callback()
+{
+    global $wpdb,$table_prefix;
+    $todate=date("Y-m-d");
+    $wps_daily_report_sms = get_option('wps_daily_report_sms');
+    $todayStatitics = $wpdb->get_row("SELECT total_visits,unique_visits FROM {$table_prefix}wps_visits WHERE date='{$todate}'");
+    $tags=array(
+        #totalVisits#,
+        #uniqueVisits#
+    );
+    $values=array(
+        $todayStatitics->total_visits,
+        $todayStatitics->unique_visits,
+    );
+
+    $wps_daily_report_sms=str_replace($tags,$values,$wps_daily_report_sms);
+    wps_send_sms(array(
+        'to'=>'',
+        'msg'=>$wps_daily_report_sms,
+    ));
+
+}
+
+function wps_send_email($params=array()){}
+function wps_send_sms($params=array()){
+    !class_exists('farapayamak') ? require_once WPS_INC.'farapayamak.class.php':null;
+    $fp=new farapayamak();
+    $fp->user="5689452";
+    $fp->pass="6546554";
+    $fp->from="100020003000";
+    $fp->to=$params['to'];
+    $fp->msg=$params['msg'];
+    $fp->send_sms();
+
+}
