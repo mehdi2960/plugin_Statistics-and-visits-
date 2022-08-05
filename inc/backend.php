@@ -22,6 +22,20 @@ function wps_admin_menu()
     include WPS_TPL . "admin_main_page.php";
 }
 
+function wps_admin_menu_settings()
+{
+    $tabs=array(
+        'general'=>'عمومی',
+        'messages'=>'اطلاع رسانی',
+        'about'=>'درباره ما',
+    );
+
+    $currentTab=isset($_GET['tab'])?$_GET['tab']:'general';
+
+    include WPS_TPL."admin_setting_page.php";
+}
+
+
 //Register custom menu page
 function wpdocs_register_my_custom_menu_page()
 {
@@ -33,6 +47,25 @@ function wpdocs_register_my_custom_menu_page()
         'wps_admin_menu',
         'dashicons-chart-area',
         6
+    );
+
+    add_submenu_page(
+        'wps/wps-stat.php',
+        'داشبورد',
+        'داشبورد',
+        'manage_options',
+        'wps/wps-stat.php',
+        'wps_admin_menu',
+
+    );
+    add_submenu_page(
+        'wps/wps-stat.php',
+        'تنظیمات',
+        'تنظیمات',
+        'manage_options',
+        'wps/wps-settings.php',
+        'wps_admin_menu_settings',
+
     );
 
     wps_load_assets();

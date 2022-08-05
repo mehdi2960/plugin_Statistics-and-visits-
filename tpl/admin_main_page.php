@@ -51,7 +51,7 @@
                                 <script>
                                     const ctx = document.getElementById('wpsChart');
                                     const myChart = new Chart(ctx, {
-                                        type: 'bar',
+                                        type: 'line',
                                         data: {
                                             labels: <?php echo json_encode($visitsDates);?>,
                                             datasets: [{
