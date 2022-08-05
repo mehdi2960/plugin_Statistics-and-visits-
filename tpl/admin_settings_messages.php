@@ -5,6 +5,16 @@
         </th>
         <td>
             <textarea name="wps_daily_report_sms" id="wps_daily_report_sms" cols="60" rows="10"><?php echo $wps_daily_report_sms;?></textarea>
+            <div>
+                <span>کدهای قابل استفاده: </span>
+                <p>
+                    <span>بازدید کل: </span>
+                    <span>#totalVisits#</span>
+                    <span>بازدید تک: </span>
+                    <span>#uniqueVisits#</span>
+
+                </p>
+            </div>
         </td>
     </tr>
 
@@ -14,6 +24,16 @@
         </th>
         <td>
             <textarea name="wps_daily_report_email" id="wps_daily_report_email" cols="60" rows="10"></textarea>
+            <div>
+                <span>کدهای قابل استفاده: </span>
+                <p>
+                    <span>بازدید کل: </span>
+                    <span>#totalVisits#</span>
+                    <span>بازدید تک: </span>
+                    <span>#uniqueVisits#</span>
+
+                </p>
+            </div>
         </td>
     </tr>
 </table>

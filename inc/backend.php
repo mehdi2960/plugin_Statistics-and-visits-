@@ -44,10 +44,14 @@ function wps_admin_menu_settings()
 
         isset($_POST['wps_daily_report_sms']) && !empty($_POST['wps_daily_report_sms']) ?
             update_option('wps_daily_report_sms',strip_tags($_POST['wps_daily_report_sms'])):null;
+
+        isset($_POST['wps_daily_report_email']) && !empty($_POST['wps_daily_report_email']) ?
+            update_option('wps_daily_report_email',strip_tags($_POST['wps_daily_report_email'])):null;
     }
     $wps_enable_enable = intval(get_option('wps_enable'));
     $wps_admin_email = get_option('wps_admin_email');
     $wps_daily_report_sms = get_option('wps_daily_report_sms');
+    $wps_daily_report_email = get_option('wps_daily_report_email');
 
     include WPS_TPL . "admin_setting_page.php";
 }
