@@ -7,5 +7,8 @@
             </a>
         <?php endforeach;?>
     </h2>
-    <?php include WPS_TPL.'admin_settings_'.$currentTab.'.php';?>
+    <form action="" method="post">
+       <?php include WPS_TPL.'admin_settings_'.$currentTab.'.php';?>
+        <?php submit_button();?>
+    </form>
 </div>
