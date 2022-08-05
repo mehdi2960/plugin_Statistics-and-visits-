@@ -41,9 +41,13 @@ function wps_admin_menu_settings()
         !empty($_POST['wps_admin_email'])
         && filter_var($_POST['wps_admin_email'], FILTER_VALIDATE_EMAIL)
             ? update_option('wps_admin_email', esc_sql($_POST['wps_admin_email'])) : null;
+
+        isset($_POST['wps_daily_report_sms']) && !empty($_POST['wps_daily_report_sms']) ?
+            update_option('wps_daily_report_sms',strip_tags($_POST['wps_daily_report_sms'])):null;
     }
     $wps_enable_enable = intval(get_option('wps_enable'));
     $wps_admin_email = get_option('wps_admin_email');
+    $wps_daily_report_sms = get_option('wps_daily_report_sms');
 
     include WPS_TPL . "admin_setting_page.php";
 }
