@@ -47,9 +47,13 @@ function wps_admin_menu_settings()
 
         isset($_POST['wps_daily_report_email']) && !empty($_POST['wps_daily_report_email']) ?
             update_option('wps_daily_report_email',strip_tags($_POST['wps_daily_report_email'])):null;
+
+        !empty($_POST['wps_admin_mobile']) ?
+            update_option('wps_admin_mobile',esc_sql($_POST['wps_admin_mobile'])):null;
     }
     $wps_enable_enable = intval(get_option('wps_enable'));
     $wps_admin_email = get_option('wps_admin_email');
+    $wps_admin_mobile = get_option('wps_admin_mobile');
     $wps_daily_report_sms = get_option('wps_daily_report_sms');
     $wps_daily_report_email = get_option('wps_daily_report_email');
 
@@ -110,6 +114,8 @@ add_action('wps_notify','wps_notify_callback');
 function wps_notify_callback()
 {
     global $wpdb,$table_prefix;
+    $wps_admin_email = get_option('wps_admin_email');
+    $wps_admin_mobile = get_option('wps_admin_mobile');
     $todate=date("Y-m-d");
     $wps_daily_report_sms = get_option('wps_daily_report_sms');
     $todayStatitics = $wpdb->get_row("SELECT total_visits,unique_visits FROM {$table_prefix}wps_visits WHERE date='{$todate}'");
@@ -123,14 +129,33 @@ function wps_notify_callback()
     );
 
     $wps_daily_report_sms=str_replace($tags,$values,$wps_daily_report_sms);
+
+    ob_start();
+    include WPS_TPL."notify_email.php";
+    $email_content=ob_get_clean();
+    $wps_daily_report_email=str_replace($tags,$values,$email_content);
+
     wps_send_sms(array(
-        'to'=>'',
+        'to'=>$wps_admin_mobile,
         'msg'=>$wps_daily_report_sms,
     ));
+    wps_send_email(array(
+        'to'=>$wps_admin_email,
+        'subject'=>'گزارش بازدید روزانه',
+        'message'=>$wps_daily_report_email,
+    ));
+
 
 }
 
-function wps_send_email($params=array()){}
+function wps_send_email($params=array())
+{
+//    $headers[]='From: amoozesh-web <mehdiprogrammer30@gmail.com>';
+//    $headers[]='Content-Type: text/html; charset=UTF-8';
+    $headers="";
+    wp_mail($params['to'],$params['subject'],$params['message'],$headers);
+}
+
 function wps_send_sms($params=array()){
     !class_exists('farapayamak') ? require_once WPS_INC.'farapayamak.class.php':null;
     $fp=new farapayamak();

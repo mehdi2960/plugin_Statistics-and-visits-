@@ -21,12 +21,24 @@ define('WPS_IMAGES',trailingslashit(WPS_URL.'assets'.'/'.'images'));
 define('WPS_FONTS',trailingslashit(WPS_URL.'assets'.'/'.'fonts'));
 
 //write activation and deactivation hooks callback
+add_filter( 'cron_schedules', 'wps_add_weekly_cron_schedule' );
+function wps_add_weekly_cron_schedule( $schedules ) {
+    $schedules['weekly'] = array(
+        'interval' => 604800,
+        'display' => __('Once Weekly')
+    );
+    return $schedules;
+}
+
 function wps_activate(){
     if (! wp_next_scheduled ( 'wps_notify' )) {
-        wp_schedule_event( strtotime(date('Y-m-d 22:00:00')), 'daily', 'wps_notify' );
+        wp_schedule_event( strtotime(date('Y-m-d 22:00:00')), 'weekly', 'wps_notify' );
     }
 }
-function wps_deactivate(){}
+function wps_deactivate()
+{
+    wp_clear_scheduled_hook('wps_notify');
+}
 
 register_activation_hook(__FILE__,'wps_activate');
 register_deactivation_hook(__FILE__,'wps_deactivate');

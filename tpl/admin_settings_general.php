@@ -22,7 +22,7 @@
             <label for="wps_admin_mobile">شماره همراه مدیر سایت : </label>
         </th>
         <td>
-            <input type="email" id="wps_admin_mobile" name="wps_admin_mobile" value="<?php //echo $wps_admin_mobile;?>">
+            <input type="text" id="wps_admin_mobile" name="wps_admin_mobile" value="<?php echo $wps_admin_mobile;?>">
         </td>
     </tr>
 </table>
