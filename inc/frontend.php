@@ -31,3 +31,26 @@ function wps_user_visit_callback()
 
 }
 add_action('init','wps_user_visit_callback');
+
+//setUserView
+function set_user_view()
+{
+    if (is_user_logged_in())
+    {
+        $currentUser=wp_get_current_user();
+        $userView=wps_get_user_view($currentUser->ID);
+        update_user_meta($currentUser->ID,'views',$userView+1);
+    }
+}
+
+function wps_get_user_view($user_ID)
+{
+    if (is_user_logged_in())
+    {
+//        $currentUser=wp_get_current_user();
+       $views=get_user_meta($user_ID,'views',true);
+       return intval($views);
+    }
+}
+
+add_action('init','set_user_view');
