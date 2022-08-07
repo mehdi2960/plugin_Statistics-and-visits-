@@ -53,4 +53,23 @@ function wps_get_user_view($user_ID)
     }
 }
 
+//show in frontend
+function wps_get_users_by_views()
+{
+    $args=array(
+        'meta_key'=>'views',
+        'order_by'=>'meta_value_num',
+        'order'=>'DESC',
+    );
+
+    $wps_user_query_view=new WP_User_Query($args);
+    $results=$wps_user_query_view->get_results();
+    echo '<ul>';
+    foreach ($results as $user){
+        $userData=get_userdata($user->ID);
+        echo '<li>'.$userData->first_name.' '.$userData->last_name.'</li>';
+    }
+    echo '</ul>';
+}
+
 add_action('init','set_user_view');

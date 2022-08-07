@@ -20,6 +20,8 @@ define('WPS_JS',trailingslashit(WPS_URL.'assets'.'/'.'js'));
 define('WPS_IMAGES',trailingslashit(WPS_URL.'assets'.'/'.'images'));
 define('WPS_FONTS',trailingslashit(WPS_URL.'assets'.'/'.'fonts'));
 
+define('WPS_DB_VERSION',1);
+
 //write activation and deactivation hooks callback
 add_filter( 'cron_schedules', 'wps_add_weekly_cron_schedule' );
 function wps_add_weekly_cron_schedule( $schedules ) {
@@ -34,6 +36,8 @@ function wps_activate(){
     if (! wp_next_scheduled ( 'wps_notify' )) {
         wp_schedule_event( strtotime(date('Y-m-d 22:00:00')), 'weekly', 'wps_notify' );
     }
+
+    include WPS_INC.'upgrade.php';
 }
 function wps_deactivate()
 {
